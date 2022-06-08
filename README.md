@@ -1,8 +1,8 @@
-# OverviewCAMP
+# Overview
 
-Microsoft Compliance Configuration Analyzer (CAMP) is a tool which, on execution, generates a report highlighting known issues in your compliance configurations in achieving data protection guidelines and recommends best practices to follow.
+Configuration Analyzer for Microsoft Purview (CAMP) is a tool which, on execution, generates a report highlighting known issues in your compliance configurations in achieving data protection guidelines and recommends best practices to follow.
 
-# What is Microsoft Compliance Configuration Analyzer (CAMP)?
+# What is Configuration Analyzer for Microsoft Purview (CAMP)?
 
 It is a PowerShell-based utility that will fetch your tenant’s current configurations & validate these configurations against Microsoft 365 recommended best practices. These best practices are based on a set of controls that include key regulations and standards for data protection and general data governance. CAMP then provides you with an actionable status report for improving your compliance posture.
 
