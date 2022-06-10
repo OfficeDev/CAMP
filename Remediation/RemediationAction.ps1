@@ -23,7 +23,7 @@ class Action : RemediationAction
     #$TenantDomain = ($Collection["AcceptedDomains"] | Where-Object {$_.InitialDomain -eq $True}).DomainName
 
     # Misc
-    $ReportTitle = "Microsoft Compliance Configuration Analyzer Remediation Report"
+    $ReportTitle = "Configuration Analyzer for Microsoft Purview Remediation Report"
 
     
     
