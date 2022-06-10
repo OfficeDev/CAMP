@@ -1471,26 +1471,33 @@ function Invoke-CAMPVersionCheck {
 
     # When detected we are running the preview release
     $CAMP = ""
+    $CAMPVersion = ""
+    $PSGalleryVersionNotFound = $False
+    $CAMPVersionNotFound =$False
 
     try {
         $CAMPVersion = (Get-InstalledModule CAMP -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue | Sort-Object Version -Desc)[0].Version
     }
     catch {  
-            $CAMPVersion = 0
-    }
-    finally{
-        $CAMPVersion = 0
+        $CAMPVersionNotFound = $True
     }
 
     try
     {
         $PSGalleryVersion = (Find-Module CAMP -Repository PSGallery -ErrorAction:SilentlyContinue -WarningAction:SilentlyContinue).Version
-    }
-    
+    }   
     catch {
-        $PSGalleryVersion = 0
-    }
-    If ($PSGalleryVersion -gt $CAMPVersion) {
+        $PSGalleryVersionNotFound = $True
+        }
+
+        If ($CAMPVersionNotFound) {
+            $Updated = $False
+                Throw "CAMP is not installed. Run Install-Module CAMP."           
+        }
+        elseif ($PSGalleryVersionNotFound) {
+                Throw "There was some issue in running the tool. Please try after some time." 
+        }
+        elseif ($PSGalleryVersion -gt $CAMPVersion) {
         $Updated = $False
         If ($Terminate) {
             Throw "CAMP is out of date. Your version is $CAMPVersion and the published version is $PSGalleryVersion. Run Update-Module CAMP."
