@@ -1,3 +1,4 @@
+
 # Overview
 
 Configuration Analyzer for Microsoft Purview (CAMP) is a tool which, on execution, generates a report highlighting known issues in your compliance configurations in achieving data protection guidelines and recommends best practices to follow.
@@ -100,13 +101,12 @@ Exceptions:
 
 Step 1: Open PowerShell in administrator mode
     
-Step 2: Install CAMP 
+Step 2: Install the CAMP module
    
     Install-Module -Name CAMP
 
-Step 3: Generate CAMP Report
+Step 3: Generate CAMP report using the following cmdlet
   
-    Use the following cmdlet to generate the CAMP report.
     Get-CAMPReport
     
    This will generate a report based on the geolocation of your tenant. If an error occurs while fetching your tenant’s geolocation, you will get a report covering all supported geolocations.
@@ -115,13 +115,13 @@ Step 3: Generate CAMP Report
     
     Get-Help Get-CAMPReport
 
-  Input Parameters	
+  Input Parameters
    You can also get a tailored report based on specific input parameters listed below.
 
    1.	Geolocation
-         
-     Get-CAMPReport -Geo @(1,7)
-            This will generate a report based on the geolocations entered by you.You need to input appropriate numbers from the following list corresponding to the regions. 
+
+Using ```Get-CAMPReport -Geo @(Region-ID)``` will generate a report based on the geolocations entered by you. You need to include appropriate input numbers from the corresponding  region.
+
             Input	Region
                 1	Asia-Pacific
                 2	Australia
@@ -138,12 +138,20 @@ Step 3: Generate CAMP Report
                 13	United Arab Emirates
                 14	United Kingdom
 
-    Note: As an add-on, the report will always include CAMP supported international sensitive information types like SWIFT Code, Credit Card Number etc.
+For example, if you wanted to select only the Japan region, you would enter the following:
+	
+	Get-CAMPReport -Geo @(7)
+
+If you want to select multiple regions, you may do so by separating them with a comma as such:
+
+	Get-CAMPReport -Geo @(1,7)
+
+Note: As an add-on, the report will always include CAMP supported international sensitive information types like SWIFT Code, Credit Card Number etc.
 
    2.	Solutions
-          
-    Get-CAMPReport -Solution @(1,7)
-          This will generate a report only for the solutions entered by you. You need to input appropriate numbers from the following list corresponding to the solution. 
+
+Use the ```Get-CAMPReport -Solution @(Solution-ID)``` to generate a report only for the solutions entered by you. You will need to input the appropriate numbers from the following list corresponding to the solution(s).
+
             Input	Solution
                 1	Data Loss Prevention
                 2	Information Protection
@@ -154,32 +162,40 @@ Step 3: Generate CAMP Report
                 7	Audit
                 8	eDiscovery
 
+For example, if you wanted to select only the Data Loss Prevention solution, you would enter the following:
+
+    Get-CAMPReport -Solution @(1)
+
+If you want to select multiple solutions, such as the Data Loss Prevention and Audit, you would do so by separating them with a comma as such:
+
+    Get-CAMPReport -Solution @(1,7)
+
    3. Multiple Parameters
-            
-          Get-CAMPReport -Solution @(1,7) -Geo @(9)
-          
-         This will generate a report only on for the solutions entered by you and based on the regions you have selected. 
-  In either of the cases, there will be a prompt to enter your credentials. Once you enter your credentials, CAMP will run for a while and an HTML report will be generated.
- 
+
+This will generate a report only on for the solutions entered by you and based on the regions you have selected. 
+In either of the cases, there will be a prompt to enter your credentials. Once you enter your credentials, CAMP will run for a while and an HTML report will be generated.
+
+	Get-CAMPReport -Solution @(1,7) -Geo @(9)
+	 
   4. ExchangeEnvironmentName
- 
-        This will generate CAMP report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization or Microsoft GCC High organization
-        
-        O365USGovDoD
-           This will generate CAMP report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization.
-            
-          Get-CAMPReport -ExchangeEnvironmentName O365USGovDoD
 
-         O365USGovGCCHigh
-           This will generate CAMP report for Security & Compliance Center PowerShell in a Microsoft GCC High organization.
-           
-           Get-CAMPReport -ExchangeEnvironmentName O365USGovGCCHigh
-           
-  5. TurnOffDataCollection
+This will generate CAMP report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization or Microsoft GCC High organization
 
-          Get-CAMPReport -TurnOffDataCollection
+Using ```O365USGovDoD``` will  generate CAMP report for Security & Compliance Center PowerShell in a Microsoft 365 DoD organization.
+
+	Get-CAMPReport -ExchangeEnvironmentName O365USGovDoD
+
+Using ```O365USGovGCCHigh``` will generate CAMP report for Security & Compliance Center PowerShell in a Microsoft GCC High organization.
+
+	Get-CAMPReport -ExchangeEnvironmentName O365USGovGCCHigh
+           
+  6. TurnOffDataCollection
+
+Using the  ```TurnOffDataCollection``` parameter will disable data collection.
+
+	Get-CAMPReport -TurnOffDataCollection
           
-        If you wish to switch off data collection use this parameter.
+        
         
 # License
 We use the following open source components in order to generate the report:
@@ -231,7 +247,7 @@ following list:
 |7      |Audit |
 |8      |eDiscovery |
 
-For e.g. If you wanted to create report for the DLP solution only then
+For example, if you wanted to create report for the DLP solution only then
 you can run the following command:
 
 ```powershell
